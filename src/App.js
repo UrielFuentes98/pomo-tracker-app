@@ -2,7 +2,7 @@
 import Login from './components/Login'
 import Register from './components/Register'
 import Stats from './components/Stats'
-import MainApp from './components/MainApp'
+import MainSection from './components/MainSection'
 
 import { useState, useEffect } from 'react'
 
@@ -28,8 +28,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <MainApp minutes={timerMinutes} seconds={timerSeconds}/>
+    <div id="app">
+      <MainSection minutes={timerMinutes} seconds={timerSeconds}/>
       {rightPanel}
     </div>
   );
