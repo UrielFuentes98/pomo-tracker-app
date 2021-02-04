@@ -1,10 +1,13 @@
-import React from "react";
-import ControlButtons from "./ControlButtons";
-import { useState } from "react";
+// TODO: change input selected after end of period. e. g. Pomodoro -> break
 
-function ControlInput({ radioName, inputName, inputValue }) {
-  const [textTime, setTextTime] = useState(inputValue);
-
+function ControlInput({
+  changeMode,
+  radioName,
+  inputName,
+  inputValue,
+  setInputValue,
+  isDefaultChecked,
+}) {
   return (
     <div className="control-input">
       <input
@@ -12,13 +15,15 @@ function ControlInput({ radioName, inputName, inputValue }) {
         id={radioName}
         name="session-type"
         value={radioName}
+        onClick={() => changeMode(radioName, inputValue)}
+        defaultChecked={isDefaultChecked}
       ></input>
       <label className="input-label">{inputName}</label>
       <input
         className="input-field"
         type="text"
-        value={textTime}
-        onChange={(e) => setTextTime(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         size="5"
       />
       <span> min</span>

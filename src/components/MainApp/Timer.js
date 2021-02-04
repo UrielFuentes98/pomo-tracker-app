@@ -1,6 +1,49 @@
-import PropTypes from "prop-types";
+import useInterval from "../useInterval";
+import { useState, useEffect } from "react";
 
-const Timer = ({ minutes, seconds }) => {
+const Timer = ({ isRunning, resetTimer, resetValue, resetedFunc }) => {
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(2);
+  const [sessionState, setSessionState] = useState("on");
+
+  useInterval(updateTimer, isRunning ? 1000 : null);
+
+  // If resetTimer flag set, reset timer and clear flag
+  useEffect(() => {
+    if (resetTimer) {
+      console.log("🚀 ~ resetValue", resetValue);
+
+      if (minutes !== resetValue) {
+        setMinutes(resetValue);
+        setSeconds(0);
+      }
+      resetedFunc();
+    }
+  }, [resetTimer]);
+
+  // Update timer function for normal section and extra section.
+  function updateTimer() {
+    if (sessionState === "on") {
+      if (seconds > 0) {
+        setSeconds((seconds) => seconds - 1);
+      } else if (minutes > 0) {
+        setSeconds(59);
+        setMinutes((minutes) => minutes - 1);
+      } else {
+        console.log("Setting extra state");
+        setSessionState("extra");
+      }
+      //Update minutes and secods if session ended.
+    } else if (sessionState === "extra") {
+      if (seconds < 59) {
+        setSeconds(seconds + 1);
+      } else if (minutes < 60) {
+        setSeconds(0);
+        setMinutes(minutes + 1);
+      }
+    }
+  }
+
   const renderTime = (number) => {
     let numString = "";
     if (number < 10) {
@@ -16,16 +59,6 @@ const Timer = ({ minutes, seconds }) => {
       {renderTime(minutes)}:{renderTime(seconds)}
     </div>
   );
-};
-
-Timer.defaultProps = {
-  minutes: 25,
-  seconds: 0,
-};
-
-Timer.propTypes = {
-  minutes: PropTypes.number,
-  seconds: PropTypes.number,
 };
 
 export default Timer;

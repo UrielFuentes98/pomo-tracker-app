@@ -1,15 +1,12 @@
-// import Timer from "./components/Timer";
+import { useState } from "react";
 import Login from './components/Login'
 import Register from './components/Register'
 import Stats from './components/Stats'
 import MainSection from './components/MainSection'
 
-import { useState, useEffect } from 'react'
-
 function App() {
   const [userState, setUserState] = useState('login')
-  const [timerMinutes, setTimerMinutes] = useState(25);
-  const [timerSeconds, setTimerSeconds] = useState(0);
+
 
   var rightPanel;
 
@@ -29,7 +26,7 @@ function App() {
 
   return (
     <div id="app">
-      <MainSection minutes={timerMinutes} seconds={timerSeconds}/>
+      <MainSection />
       {rightPanel}
     </div>
   );
