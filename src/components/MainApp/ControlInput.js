@@ -1,5 +1,3 @@
-// TODO: change input selected after end of period. e. g. Pomodoro -> break
-
 function ControlInput({
   changeMode,
   radioName,

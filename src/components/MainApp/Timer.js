@@ -6,7 +6,7 @@ const Timer = ({ isRunning, resetTimer, resetValue, resetedFunc }) => {
   const [seconds, setSeconds] = useState(2);
   const [sessionState, setSessionState] = useState("on");
 
-  useInterval(updateTimer, isRunning ? 1000 : null);
+  useInterval(updateTimer, isRunning ? 100 : null);
 
   // If resetTimer flag set, reset timer and clear flag
   useEffect(() => {

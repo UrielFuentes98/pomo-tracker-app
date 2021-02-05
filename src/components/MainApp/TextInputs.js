@@ -2,7 +2,14 @@ import React from "react";
 import ControlInput from "./ControlInput";
 import { useState, useEffect } from "react";
 
-function TextInputs({ changeMode, mode }) {
+function TextInputs({
+  changeMode,
+  mode,
+  updateMode,
+  setUpdateMode,
+  setNextTimer,
+  setResetTimer,
+}) {
   const [pomodoroText, setPomodoroText] = useState("25");
   const [breakText, setBreakText] = useState("5");
   const [longBreakText, setLongBreakText] = useState("15");
@@ -13,9 +20,29 @@ function TextInputs({ changeMode, mode }) {
   });
 
   useEffect(() => {
-    console.log("🚀 ~ mode", mode)
+    //If mode is changed by program, change
+    //initial value of timer.
+    if (updateMode) {
+      switch (mode) {
+        case "pomodoro":
+          setNextTimer(parseInt(pomodoroText));
+          break;
+        case "break":
+          setNextTimer(parseInt(breakText));
+          break;
+        case "long-break":
+          setNextTimer(parseInt(longBreakText));
+          break;
+        default:
+      }
+      setUpdateMode(false);
+      setResetTimer(true);
+    }
+  }, [updateMode]);
 
-    switch (mode) {      
+  useEffect(() => {
+    //If mode is updated by program change radio input selected.
+    switch (mode) {
       case "pomodoro":
         setRadioValues({ pomodoro: true, break: false, longBreak: false });
         break;

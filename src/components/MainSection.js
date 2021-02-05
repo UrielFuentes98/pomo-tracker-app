@@ -6,9 +6,11 @@ import { useState } from "react";
 function MianApp() {
   const [nextMinutes, setNextMinutes] = useState(25);
   const [mode, setMode] = useState("pomodoro");
+  const [updateMode, setUpdateMode] = useState(false);
   const [resetTimer, setResetTimer] = useState(true);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [sessionState, setSessionState] = useState("wait");
+  const [cycles, setCycles] = useState(0);
 
   // Update session mode and next initial time.
 
@@ -43,13 +45,29 @@ function MianApp() {
         break;
       case "wait":
         setIsTimerRunning(false);
-        setResetTimer(true);
         setSessionState(newState);
+        checkNextForSession();
         break;
       default:
     }
   };
 
+  //Calculating next session according to pomodoro standard
+  //and present session
+  const checkNextForSession = () => {
+    if (mode === "pomodoro") {
+      if (cycles < 3) {
+        setMode("break");
+        setCycles((cycles) => cycles + 1);
+      } else {
+        setMode("long-break");
+        setCycles(0);
+      }
+    } else {
+      setMode("pomodoro");
+    }
+    setUpdateMode(true);
+  };
   const timerReseted = () => {
     setResetTimer(false);
   };
@@ -66,7 +84,14 @@ function MianApp() {
         updateState={changeTimerState}
         sessionState={sessionState}
       />
-      <TextInputs changeMode={changeMode} mode={mode}/>
+      <TextInputs
+        changeMode={changeMode}
+        mode={mode}
+        setNextTimer={setNextMinutes}
+        setUpdateMode={setUpdateMode}
+        updateMode={updateMode}
+        setResetTimer={setResetTimer}
+      />
     </div>
   );
 }
