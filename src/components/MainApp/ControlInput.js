@@ -6,7 +6,7 @@ function ControlInput({
   inputName,
   inputValue,
   setInputValue,
-  isDefaultChecked,
+  inputChecked,
 }) {
   return (
     <div className="control-input">
@@ -16,7 +16,7 @@ function ControlInput({
         name="session-type"
         value={radioName}
         onClick={() => changeMode(radioName, inputValue)}
-        defaultChecked={isDefaultChecked}
+        checked={inputChecked}
       ></input>
       <label className="input-label">{inputName}</label>
       <input

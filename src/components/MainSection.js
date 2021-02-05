@@ -66,7 +66,7 @@ function MianApp() {
         updateState={changeTimerState}
         sessionState={sessionState}
       />
-      <TextInputs changeMode={changeMode} />
+      <TextInputs changeMode={changeMode} mode={mode}/>
     </div>
   );
 }

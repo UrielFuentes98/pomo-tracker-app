@@ -1,11 +1,33 @@
 import React from "react";
 import ControlInput from "./ControlInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function TextInputs({ changeMode }) {
+function TextInputs({ changeMode, mode }) {
   const [pomodoroText, setPomodoroText] = useState("25");
   const [breakText, setBreakText] = useState("5");
   const [longBreakText, setLongBreakText] = useState("15");
+  const [radioValues, setRadioValues] = useState({
+    pomodoro: true,
+    break: false,
+    longBreak: false,
+  });
+
+  useEffect(() => {
+    console.log("🚀 ~ mode", mode)
+
+    switch (mode) {      
+      case "pomodoro":
+        setRadioValues({ pomodoro: true, break: false, longBreak: false });
+        break;
+      case "break":
+        setRadioValues({ pomodoro: false, break: true, longBreak: false });
+        break;
+      case "long-break":
+        setRadioValues({ pomodoro: false, break: false, longBreak: true });
+        break;
+      default:
+    }
+  }, [mode]);
 
   return (
     <div id="input-elements">
@@ -15,7 +37,7 @@ function TextInputs({ changeMode }) {
         inputName="Pomodoro"
         inputValue={pomodoroText}
         setInputValue={setPomodoroText}
-        isDefaultChecked={true}
+        inputChecked={radioValues.pomodoro}
       />
       <ControlInput
         changeMode={changeMode}
@@ -23,7 +45,7 @@ function TextInputs({ changeMode }) {
         inputName="Break"
         inputValue={breakText}
         setInputValue={setBreakText}
-        isDefaultChecked={false}
+        inputChecked={radioValues.break}
       />
       <ControlInput
         changeMode={changeMode}
@@ -31,7 +53,7 @@ function TextInputs({ changeMode }) {
         inputName="Long Break"
         inputValue={longBreakText}
         setInputValue={setLongBreakText}
-        isDefaultChecked={false}
+        inputChecked={radioValues.longBreak}
       />
     </div>
   );
