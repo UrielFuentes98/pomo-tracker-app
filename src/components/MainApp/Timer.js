@@ -11,8 +11,6 @@ const Timer = ({ isRunning, resetTimer, resetValue, resetedFunc }) => {
   // If resetTimer flag set, reset timer and clear flag
   useEffect(() => {
     if (resetTimer) {
-      console.log("🚀 ~ resetValue", resetValue);
-
       if (minutes !== resetValue) {
         setMinutes(resetValue);
         setSeconds(0);

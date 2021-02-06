@@ -13,7 +13,7 @@ function ControlInput({
         id={radioName}
         name="session-type"
         value={radioName}
-        onClick={() => changeMode(radioName, inputValue)}
+        onClick={() => changeMode(radioName)}
         checked={inputChecked}
       ></input>
       <label className="input-label">{inputName}</label>

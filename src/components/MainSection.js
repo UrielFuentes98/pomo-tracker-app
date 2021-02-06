@@ -8,25 +8,30 @@ function MianApp() {
   const [mode, setMode] = useState("pomodoro");
   const [updateMode, setUpdateMode] = useState(false);
   const [resetTimer, setResetTimer] = useState(true);
+  const [checkTextInput, setCheckTextInput] = useState(false);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [sessionState, setSessionState] = useState("wait");
+  const [sessionOver, setSessionOver] = useState(false);
   const [cycles, setCycles] = useState(0);
 
   // Update session mode and next initial time.
 
-  const changeMode = (newMode, newMinutes) => {
-    setNextMinutes(parseInt(newMinutes));
-    setMode(newMode);
+  const changeMode = (newMode) => {
+    if (sessionState === "wait") {
+      // setNextMinutes(parseInt(newMinutes));
+      setMode(newMode);
+    }
   };
 
   // Change sessionState according to new state
 
   const changeTimerState = (newState) => {
-    console.log("🚀 ~ newState", newState);
+    // console.log("🚀 ~ newState", newState);
     switch (newState) {
       case "run":
         if (sessionState === "wait") {
-          setResetTimer(true);
+          setCheckTextInput(true);
+          setSessionOver(false);
           setIsTimerRunning(true);
           setSessionState(newState);
         }
@@ -46,7 +51,11 @@ function MianApp() {
       case "wait":
         setIsTimerRunning(false);
         setSessionState(newState);
-        checkNextForSession();
+        if (sessionOver || mode !== "pomodoro") {
+          checkNextForSession();
+        } else {
+          setCheckTextInput(true);
+        }
         break;
       default:
     }
@@ -66,8 +75,10 @@ function MianApp() {
     } else {
       setMode("pomodoro");
     }
+    setSessionOver(false);
     setUpdateMode(true);
   };
+
   const timerReseted = () => {
     setResetTimer(false);
   };
@@ -79,6 +90,8 @@ function MianApp() {
         resetTimer={resetTimer}
         resetValue={nextMinutes}
         resetedFunc={timerReseted}
+        sessionOver={sessionOver}
+        setSessionOver={setSessionOver}
       />
       <ControlButtons
         updateState={changeTimerState}
@@ -91,6 +104,9 @@ function MianApp() {
         setUpdateMode={setUpdateMode}
         updateMode={updateMode}
         setResetTimer={setResetTimer}
+        checkTextInput={checkTextInput}
+        setCheckTextInput={setCheckTextInput}
+        nextMinutes={nextMinutes}
       />
     </div>
   );
