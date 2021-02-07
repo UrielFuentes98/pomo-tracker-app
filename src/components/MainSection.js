@@ -50,8 +50,6 @@ function MianApp() {
         break;
       case "wait":
         setIsTimerRunning(false);
-        
-
         if (sessionState === "stop") {
           setResetContinue(true);
         }
