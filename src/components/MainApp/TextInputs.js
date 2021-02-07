@@ -45,23 +45,18 @@ function TextInputs({
 
   useEffect(() => {
     //If mode is updated by program change radio input selected.
-    console.log("🚀 ~ nextMinutes", nextMinutes)
-    console.log("🚀 ~ mode", mode)
     switch (mode) {
       case "pomodoro":
         setRadioValues({ pomodoro: true, break: false, longBreak: false });
         setNextTimer(parseInt(pomodoroText));
-        console.log("🚀 ~ pomodoroText", pomodoroText)
         break;
       case "break":
         setRadioValues({ pomodoro: false, break: true, longBreak: false });
         setNextTimer(parseInt(breakText));
-        console.log("🚀 ~ breakText", breakText)
         break;
       case "long-break":
         setRadioValues({ pomodoro: false, break: false, longBreak: true });
         setNextTimer(parseInt(longBreakText));
-        console.log("🚀 ~ longBreakText", longBreakText)
         break;
       default:
     }

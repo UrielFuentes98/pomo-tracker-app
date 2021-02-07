@@ -1,7 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function ControlButtons({ updateState, sessionState }) {
+// TO-DO Fix Stop/Continue Button
+
+function ControlButtons({
+  updateState,
+  sessionState,
+  resetContinue,
+  setResetContinue,
+}) {
   const [controlText, setControlText] = useState("Stop");
+
+  useEffect(() => {
+    if (resetContinue) {
+      setControlText("Stop");
+      setResetContinue(false);
+    }
+  }, [resetContinue]);
 
   // Change state of control button
   const setControlState = (newState) => {

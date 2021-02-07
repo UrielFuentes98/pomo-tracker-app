@@ -13,6 +13,7 @@ function MianApp() {
   const [sessionState, setSessionState] = useState("wait");
   const [sessionOver, setSessionOver] = useState(false);
   const [cycles, setCycles] = useState(0);
+  const [resetContinue, setResetContinue] = useState(false);
 
   // Update session mode and next initial time.
 
@@ -26,7 +27,6 @@ function MianApp() {
   // Change sessionState according to new state
 
   const changeTimerState = (newState) => {
-    // console.log("🚀 ~ newState", newState);
     switch (newState) {
       case "run":
         if (sessionState === "wait") {
@@ -43,13 +43,18 @@ function MianApp() {
         }
         break;
       case "stop":
-        if (sessionState === "run") {
+        if (sessionState === "run" || sessionState === "continue") {
           setIsTimerRunning(false);
           setSessionState(newState);
         }
         break;
       case "wait":
         setIsTimerRunning(false);
+        
+
+        if (sessionState === "stop") {
+          setResetContinue(true);
+        }
         setSessionState(newState);
         if (sessionOver || mode !== "pomodoro") {
           checkNextForSession();
@@ -96,6 +101,8 @@ function MianApp() {
       <ControlButtons
         updateState={changeTimerState}
         sessionState={sessionState}
+        resetContinue={resetContinue}
+        setResetContinue={setResetContinue}
       />
       <TextInputs
         changeMode={changeMode}
