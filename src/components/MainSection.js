@@ -13,6 +13,7 @@ function MianApp() {
   const [sessionOver, setSessionOver] = useState(false);
   const [cycles, setCycles] = useState(0);
   const [resetContinue, setResetContinue] = useState(false);
+  const [modeLabel, setModeLabel] = useState("Pomodoro");
 
   // Update session mode and next initial time.
 
@@ -20,6 +21,7 @@ function MianApp() {
     if (sessionState === "wait") {
       // setNextMinutes(parseInt(newMinutes));
       setMode(newMode);
+      defineModeLabel(newMode);
     }
   };
 
@@ -69,19 +71,37 @@ function MianApp() {
     if (mode === "pomodoro") {
       if (cycles < 3) {
         setMode("break");
+        defineModeLabel("break");
         setCycles((cycles) => cycles + 1);
       } else {
         setMode("long-break");
+        defineModeLabel("long-break");
         setCycles(0);
       }
     } else {
       setMode("pomodoro");
+      defineModeLabel("pomodoro");
     }
     setSessionOver(false);
   };
 
   const timerReseted = () => {
     setResetTimer(false);
+  };
+
+  const defineModeLabel = (mode) => {
+    switch (mode) {
+      case "pomodoro":
+        setModeLabel("Pomodoro");
+        break;
+      case "break":
+        setModeLabel("Break");
+        break;
+      case "long-break":
+        setModeLabel("Long Break");
+        break;
+      default:
+    }
   };
 
   return (
@@ -94,6 +114,7 @@ function MianApp() {
         sessionOver={sessionOver}
         setSessionOver={setSessionOver}
       />
+      {sessionOver ? <h2>{modeLabel} session finished.</h2> : null}
       <ControlButtons
         updateState={changeTimerState}
         sessionState={sessionState}
