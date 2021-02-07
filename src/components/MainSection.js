@@ -6,7 +6,6 @@ import { useState } from "react";
 function MianApp() {
   const [nextMinutes, setNextMinutes] = useState(25);
   const [mode, setMode] = useState("pomodoro");
-  const [updateMode, setUpdateMode] = useState(false);
   const [resetTimer, setResetTimer] = useState(true);
   const [checkTextInput, setCheckTextInput] = useState(false);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -31,7 +30,6 @@ function MianApp() {
       case "run":
         if (sessionState === "wait") {
           setCheckTextInput(true);
-          setSessionOver(false);
           setIsTimerRunning(true);
           setSessionState(newState);
         }
@@ -56,9 +54,10 @@ function MianApp() {
         setSessionState(newState);
         if (sessionOver || mode !== "pomodoro") {
           checkNextForSession();
-        } else {
+        } /* else {
           setCheckTextInput(true);
-        }
+        } */
+        setCheckTextInput(true);
         break;
       default:
     }
@@ -79,7 +78,6 @@ function MianApp() {
       setMode("pomodoro");
     }
     setSessionOver(false);
-    setUpdateMode(true);
   };
 
   const timerReseted = () => {
@@ -106,12 +104,9 @@ function MianApp() {
         changeMode={changeMode}
         mode={mode}
         setNextTimer={setNextMinutes}
-        setUpdateMode={setUpdateMode}
-        updateMode={updateMode}
         setResetTimer={setResetTimer}
         checkTextInput={checkTextInput}
         setCheckTextInput={setCheckTextInput}
-        nextMinutes={nextMinutes}
       />
     </div>
   );
