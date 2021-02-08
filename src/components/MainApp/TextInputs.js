@@ -18,27 +18,42 @@ function TextInputs({
     break: false,
     longBreak: false,
   });
+  const [invalidPomoInput, setInvalidPomoInput] = useState(false);
+  const [invalidBreakInput, setInvalidBreakInput] = useState(false);
+  const [invalidLongInput, setInvalidLongInput] = useState(false);
 
   useEffect(() => {
     //If mode is updated by program change radio input selected.
     switch (mode) {
       case "pomodoro":
         setRadioValues({ pomodoro: true, break: false, longBreak: false });
-        setNextTimer(parseInt(pomodoroText));
+        if (invalidPomoInput) {
+          setNextTimer(25);
+        } else {
+          setNextTimer(parseInt(pomodoroText));
+        }
         break;
       case "break":
         setRadioValues({ pomodoro: false, break: true, longBreak: false });
-        setNextTimer(parseInt(breakText));
+        if (invalidBreakInput) {
+          setNextTimer(5);
+        } else {
+          setNextTimer(parseInt(breakText));
+        }
         break;
       case "long-break":
         setRadioValues({ pomodoro: false, break: false, longBreak: true });
-        setNextTimer(parseInt(longBreakText));
+        if (invalidLongInput) {
+          setNextTimer(15);
+        } else {
+          setNextTimer(parseInt(longBreakText));
+        }
         break;
       default:
     }
     setCheckTextInput(false);
     if (checkTextInput) {
-    setResetTimer(true);
+      setResetTimer(true);
     }
   }, [mode, checkTextInput]);
 
@@ -51,6 +66,8 @@ function TextInputs({
         inputValue={pomodoroText}
         setInputValue={setPomodoroText}
         inputChecked={radioValues.pomodoro}
+        invalidInput={invalidPomoInput}
+        setInvalidInput={setInvalidPomoInput}
       />
       <ControlInput
         changeMode={changeMode}
@@ -59,6 +76,8 @@ function TextInputs({
         inputValue={breakText}
         setInputValue={setBreakText}
         inputChecked={radioValues.break}
+        invalidInput={invalidBreakInput}
+        setInvalidInput={setInvalidBreakInput}
       />
       <ControlInput
         changeMode={changeMode}
@@ -67,6 +86,8 @@ function TextInputs({
         inputValue={longBreakText}
         setInputValue={setLongBreakText}
         inputChecked={radioValues.longBreak}
+        invalidInput={invalidLongInput}
+        setInvalidInput={setInvalidLongInput}
       />
     </div>
   );

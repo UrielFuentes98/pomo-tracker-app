@@ -5,7 +5,34 @@ function ControlInput({
   inputValue,
   setInputValue,
   inputChecked,
+  invalidInput,
+  setInvalidInput,
 }) {
+
+  //Determine if input is valid when input is active.
+  const validAndSaveInput = (e) => {
+    if (inputChecked) {
+      let inputNumber = Number(e.target.value);
+      if (isNaN(inputNumber)) {
+        setInvalidInput(true);
+        //Check if in range and number is integer
+      } else if (inputNumber > 0 && inputNumber < 60) {
+        if (Number.isInteger(inputNumber)) {
+          setInvalidInput(false);
+        } else {
+          setInvalidInput(true);
+        }
+      } else {
+        setInvalidInput(true);
+      }
+      setInputValue(e.target.value);
+    }
+  };
+
+  function isNumeric(value) {
+    return /^\d+$/.test(value);
+  }
+
   return (
     <div className="control-input">
       <input
@@ -21,10 +48,11 @@ function ControlInput({
         className="input-field"
         type="text"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => validAndSaveInput(e)}
         size="5"
       />
       <span> min</span>
+      {invalidInput ? <span>Invalid Input</span> : null}
     </div>
   );
 }
