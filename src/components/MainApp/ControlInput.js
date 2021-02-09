@@ -29,10 +29,6 @@ function ControlInput({
     }
   };
 
-  function isNumeric(value) {
-    return /^\d+$/.test(value);
-  }
-
   return (
     <div className="control-input">
       <input
