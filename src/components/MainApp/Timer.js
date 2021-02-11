@@ -57,7 +57,7 @@ const Timer = ({
   };
 
   return (
-    <div id="timer">
+    <div className="display-2 font-weight-bold mb-2">
       {renderTime(minutes)}:{renderTime(seconds)}
     </div>
   );

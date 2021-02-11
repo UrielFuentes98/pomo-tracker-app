@@ -58,7 +58,7 @@ function TextInputs({
   }, [mode, checkTextInput]);
 
   return (
-    <div id="input-elements">
+    <div className="mt-5">
       <ControlInput
         changeMode={changeMode}
         radioName="pomodoro"

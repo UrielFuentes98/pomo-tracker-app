@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -6,52 +8,35 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+  };
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
-    console.log("🚀 ~ email", email)
+    console.log("🚀 ~ email", email);
   };
 
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
-    console.log("🚀 ~ password", password)
-
+    console.log("🚀 ~ password", password);
   };
 
   return (
-    <div className="right-panel">
-      <form id="login-form" onSubmit={handleSubmit}>
-        <h1>Log In</h1>
+    <div>
+      <h1 className="mb-4">Login</h1>
+      <Form>
+        <Form.Group controlId="EmailUsername">
+          <Form.Label>Username/Email</Form.Label>
+          <Form.Control type="email" placeholder="Enter username or email" />
+        </Form.Group>
 
-        <div>
-          <label for="email">Username/Email:</label>
-          <input
-            type="text"
-            id="email"
-            name="user_email"
-            size="15"
-            onChange={handleChangeEmail}
-            value={email}
-          />
-        </div>
-
-        <div class="login-input">
-          <label for="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            size="10"
-            onChange={handleChangePassword}
-            value={password}
-          />
-        </div>
-
-        <div id="login-form-buttons">
-          <button type="submit">Log In</button>
-          <button type="button">Sign Up</button>
-        </div>
-      </form>
+        <Form.Group controlId="LoginPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     </div>
   );
 };

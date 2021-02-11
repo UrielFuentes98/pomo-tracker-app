@@ -29,11 +29,13 @@ function App() {
   return (
     <Container fluid>
       <Row>
-      <Col xs={4}></Col>
-        <Col xs={4} className="justify-content-center">
+        <Col xl={4} md={3}></Col>
+        <Col xl={5} md={6} style={{ marginTop: "25vh" }}>
           <MainSection />
         </Col>
-        <Col>{rightPanel}</Col>
+        <Col xl={2} md={3} style={{ marginTop: "10vh" }}>
+          {rightPanel}
+        </Col>
       </Row>
     </Container>
   );

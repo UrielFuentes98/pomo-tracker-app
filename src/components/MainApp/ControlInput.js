@@ -8,7 +8,6 @@ function ControlInput({
   invalidInput,
   setInvalidInput,
 }) {
-
   //Determine if input is valid when input is active.
   const validAndSaveInput = (e) => {
     if (inputChecked) {
@@ -30,16 +29,19 @@ function ControlInput({
   };
 
   return (
-    <div className="control-input">
-      <input
-        type="radio"
-        id={radioName}
-        name="session-type"
-        value={radioName}
-        onClick={() => changeMode(radioName)}
-        checked={inputChecked}
-      ></input>
-      <label className="input-label">{inputName}</label>
+    <div>
+      <span style={{ width: "110px", display: "inline-block" }}>
+        <input
+          type="radio"
+          className="mr-1"
+          id={radioName}
+          name="session-type"
+          value={radioName}
+          onClick={() => changeMode(radioName)}
+          checked={inputChecked}
+        ></input>
+        <label className="input-label">{inputName}</label>
+      </span>
       <input
         className="input-field"
         type="text"

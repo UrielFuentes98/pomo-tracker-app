@@ -2,6 +2,9 @@ import Timer from "./MainApp/Timer";
 import ControlButtons from "./MainApp/ControlButtons";
 import TextInputs from "./MainApp/TextInputs";
 import { useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function MianApp() {
   const [nextMinutes, setNextMinutes] = useState(25);
@@ -105,31 +108,49 @@ function MianApp() {
   };
 
   return (
-    <div id="main-section">
-      <Timer
-        isRunning={isTimerRunning}
-        resetTimer={resetTimer}
-        resetValue={nextMinutes}
-        resetedFunc={timerReseted}
-        sessionOver={sessionOver}
-        setSessionOver={setSessionOver}
-      />
-      {sessionOver ? <h2>{modeLabel} session finished.</h2> : null}
-      <ControlButtons
-        updateState={changeTimerState}
-        sessionState={sessionState}
-        resetContinue={resetContinue}
-        setResetContinue={setResetContinue}
-      />
-      <TextInputs
-        changeMode={changeMode}
-        mode={mode}
-        setNextTimer={setNextMinutes}
-        setResetTimer={setResetTimer}
-        checkTextInput={checkTextInput}
-        setCheckTextInput={setCheckTextInput}
-      />
-    </div>
+    <Container fluid>
+      <Row>
+        <Col md={{ offset: 2 }}>
+          <Timer
+            isRunning={isTimerRunning}
+            resetTimer={resetTimer}
+            resetValue={nextMinutes}
+            resetedFunc={timerReseted}
+            sessionOver={sessionOver}
+            setSessionOver={setSessionOver}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={{ offset: 1 }}>
+          {sessionOver ? (
+            <h3 className="text-danger">{modeLabel} session finished.</h3>
+          ) : null}
+        </Col>
+      </Row>
+      <Row>
+        <Col md={{ offset: 2 }}>
+          <ControlButtons
+            updateState={changeTimerState}
+            sessionState={sessionState}
+            resetContinue={resetContinue}
+            setResetContinue={setResetContinue}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={{ offset: 2 }}>
+          <TextInputs
+            changeMode={changeMode}
+            mode={mode}
+            setNextTimer={setNextMinutes}
+            setResetTimer={setResetTimer}
+            checkTextInput={checkTextInput}
+            setCheckTextInput={setCheckTextInput}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

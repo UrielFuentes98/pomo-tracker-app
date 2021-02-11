@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import Button from "react-bootstrap/Button";
 // TO-DO Fix Stop/Continue Button
 
 function ControlButtons({
@@ -30,17 +30,20 @@ function ControlButtons({
   };
 
   return (
-    <div id="control-btns">
-      <button
-        className="control-btn"
-        id="start-btn"
+    <div className="ml-3">
+      <Button
+        variant="secondary"
+        className="mr-2"
+        style={{ border: "1px solid black", boxShadow: "none" }}
         onClick={() => updateState("run")}
       >
+        {" "}
         Start
-      </button>
-      <button
-        className="control-btn"
-        id="control-btn"
+      </Button>
+      <Button
+        variant="secondary"
+        className="mr-2"
+        style={{ border: "1px solid black", boxShadow: "none" }}
         onClick={() =>
           controlText === "Stop"
             ? setControlState("Continue")
@@ -48,14 +51,15 @@ function ControlButtons({
         }
       >
         {controlText}
-      </button>
-      <button
-        className="control-btn"
-        id="end-btn"
+      </Button>
+      <Button
+        variant="secondary"
+        className="mr-2"
+        style={{ border: "1px solid black", boxShadow: "none" }}
         onClick={() => updateState("wait")}
       >
         End
-      </button>
+      </Button>
     </div>
   );
 }
