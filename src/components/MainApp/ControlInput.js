@@ -50,7 +50,9 @@ function ControlInput({
         size="5"
       />
       <span> min</span>
-      {invalidInput ? <span>Invalid Input</span> : null}
+      {invalidInput ? (
+        <span className="ml-2 text-danger font-weight-bold">Invalid Input</span>
+      ) : null}
     </div>
   );
 }
