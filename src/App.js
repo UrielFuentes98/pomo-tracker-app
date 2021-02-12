@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function App() {
-  const [userState, setUserState] = useState("login");
+  const [userState, setUserState] = useState("register");
 
   var rightPanel;
 
