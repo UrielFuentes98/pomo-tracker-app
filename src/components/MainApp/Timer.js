@@ -8,12 +8,34 @@ const Timer = ({
   resetedFunc,
   sessionOver,
   setSessionOver,
+  mode,
 }) => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(2);
 
   useInterval(updateTimer, isRunning ? 100 : null);
 
+  useEffect(() => {
+    let titleString = ``;
+    if (!sessionOver) {
+      switch (mode) {
+        case "pomodoro":
+          titleString += "Pomodoro - ";
+          break;
+        case "break":
+          titleString += "Break - ";
+          break;
+        case "long-break":
+          titleString += "Long Break - ";
+          break;
+        default:
+      }
+    } else {
+      titleString += "Extra - ";
+    }
+    document.title =
+      titleString + `${renderTime(minutes)}:${renderTime(seconds)}`;
+  }, [minutes, seconds, mode]);
   // If resetTimer flag set, reset timer and clear flag
   useEffect(() => {
     if (resetTimer) {

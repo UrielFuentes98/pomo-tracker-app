@@ -118,6 +118,7 @@ function MianApp() {
             resetedFunc={timerReseted}
             sessionOver={sessionOver}
             setSessionOver={setSessionOver}
+            mode={mode}
           />
         </Col>
       </Row>
