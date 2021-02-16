@@ -55,6 +55,7 @@ function TextInputs({
     if (checkTextInput) {
       setResetTimer(true);
     }
+    // eslint-disable-next-line
   }, [mode, checkTextInput]);
 
   return (

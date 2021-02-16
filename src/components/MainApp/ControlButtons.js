@@ -15,6 +15,7 @@ function ControlButtons({
       setControlText("Stop");
       setResetContinue(false);
     }
+    // eslint-disable-next-line
   }, [resetContinue]);
 
   // Change state of control button

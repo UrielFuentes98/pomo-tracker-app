@@ -35,7 +35,9 @@ const Timer = ({
     }
     document.title =
       titleString + `${renderTime(minutes)}:${renderTime(seconds)}`;
+    // eslint-disable-next-line
   }, [minutes, seconds, mode]);
+
   // If resetTimer flag set, reset timer and clear flag
   useEffect(() => {
     if (resetTimer) {
@@ -43,6 +45,7 @@ const Timer = ({
       setSeconds(0);
       resetedFunc();
     }
+    // eslint-disable-next-line
   }, [resetTimer]);
 
   // Update timer function for normal section and extra section.

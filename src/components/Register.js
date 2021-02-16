@@ -64,7 +64,7 @@ const Register = () => {
             value={formData.password}
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Type a password"
           />
         </Form.Group>
         <Button variant="primary" type="submit">
