@@ -22,7 +22,7 @@ const Login = () => {
 
   return (
     <div>
-      <h1 className="mb-4">Login</h1>
+      <h2 className="mb-4">Login</h2>
       <Form>
         <Form.Group controlId="EmailUsername">
           <Form.Label>Username/Email</Form.Label>
@@ -34,7 +34,7 @@ const Login = () => {
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Submit
+          Login
         </Button>
       </Form>
     </div>
