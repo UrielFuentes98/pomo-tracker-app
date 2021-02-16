@@ -1,41 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+const formReducer = (state, event) => {
+  return {
+    ...state,
+    [event.name]: event.value,
+  };
+};
+
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useReducer(formReducer, {});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  function handleSubmit(event) {
+    event.preventDefault();
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-    console.log("🚀 ~ email", email);
-  };
+    fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.text())
+      .then((message) => console.log(message))
+      .catch((error) => console.log("error", error));
+  }
 
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-    console.log("🚀 ~ password", password);
+  const handleChange = (event) => {
+    setFormData({
+      name: event.target.name,
+      value: event.target.value,
+    });
   };
 
   return (
     <div>
       <h2 className="mb-4">Login</h2>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="EmailUsername">
           <Form.Label>Username/Email</Form.Label>
-          <Form.Control type="email" placeholder="Enter username or email" />
+          <Form.Control
+            onChange={handleChange}
+            value={formData.username}
+            name="user_id"
+            type="text"
+            placeholder="Enter username or email"
+          />
         </Form.Group>
 
         <Form.Group controlId="LoginPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            onChange={handleChange}
+            value={formData.username}
+            name="password"
+            type="password"
+            placeholder="Enter password"
+          />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
+        <div style={{ position: "relative" }}>
+          <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
+            Login
+          </Button>
+          <a href="#" style={{ position: "absolute", bottom: 0, right: 0, color: "darkslategray" }}>
+            Register
+          </a>
+        </div>
       </Form>
     </div>
   );

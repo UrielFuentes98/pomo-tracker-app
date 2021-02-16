@@ -67,7 +67,7 @@ const Register = () => {
             placeholder="Type a password"
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
           Register
         </Button>
       </Form>
