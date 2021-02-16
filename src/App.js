@@ -10,22 +10,6 @@ import Col from "react-bootstrap/Col";
 function App() {
   const [userState, setUserState] = useState("login");
 
-  var rightPanel;
-
-  switch (userState) {
-    case "login":
-      rightPanel = <Login />;
-      break;
-    case "register":
-      rightPanel = <Register />;
-      break;
-    case "stats":
-      rightPanel = <Stats />;
-      break;
-    default:
-      rightPanel = <Login />;
-  }
-
   return (
     <Container fluid>
       <Row>
@@ -34,7 +18,9 @@ function App() {
           <MainSection />
         </Col>
         <Col xl={2} md={3} style={{ marginTop: "10vh" }}>
-          {rightPanel}
+          {userState === "login" && <Login stateToRegister={() => setUserState ("register")} />}
+          {userState === "register" && <Register />}
+          {userState === "stats" && <Stats />}
         </Col>
       </Row>
     </Container>

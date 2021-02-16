@@ -9,7 +9,7 @@ const formReducer = (state, event) => {
   };
 };
 
-const Login = () => {
+const Login = ({ stateToRegister }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
 
   function handleSubmit(event) {
@@ -61,7 +61,16 @@ const Login = () => {
           <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
             Login
           </Button>
-          <a href="#" style={{ position: "absolute", bottom: 0, right: 0, color: "darkslategray" }}>
+          <a
+            href="#"
+            onClick={stateToRegister}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              color: "darkslategray",
+            }}
+          >
             Register
           </a>
         </div>
