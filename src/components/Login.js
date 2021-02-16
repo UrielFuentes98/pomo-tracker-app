@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -9,8 +9,15 @@ const formReducer = (state, event) => {
   };
 };
 
-const Login = ({ stateToRegister }) => {
+const Login = ({ stateToRegister, stateToStats }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (document.cookie) {
+      stateToStats();
+    }
+  });
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -21,7 +28,16 @@ const Login = ({ stateToRegister }) => {
       body: JSON.stringify(formData),
     })
       .then((response) => response.text())
-      .then((message) => console.log(message))
+      .then((message) => {
+        if (message === "User logged in") {
+          console.log("🚀 ~ file: Login.js ~ line 27 ~ message", message);
+          stateToStats();
+          setErrorMessage("");
+        } else {
+          console.log("🚀 ~ file: Login.js ~ line 27 ~ message", message);
+          setErrorMessage(message);
+        }
+      })
       .catch((error) => console.log("error", error));
   }
 
@@ -57,6 +73,7 @@ const Login = ({ stateToRegister }) => {
             placeholder="Enter password"
           />
         </Form.Group>
+        <p className="text-danger font-weight-bold">{errorMessage}</p>
         <div style={{ position: "relative" }}>
           <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
             Login

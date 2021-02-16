@@ -19,7 +19,10 @@ function App() {
         </Col>
         <Col xl={2} md={3} style={{ marginTop: "10vh" }}>
           {userState === "login" && (
-            <Login stateToRegister={() => setUserState("register")} />
+            <Login
+              stateToRegister={() => setUserState("register")}
+              stateToStats={() => setUserState("stats")}
+            />
           )}
           {userState === "register" && (
             <Register stateToStats={() => setUserState("stats")} />
