@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useReducer } from "react";
+import { useState, useReducer } from "react";
 
 const formReducer = (state, event) => {
   return {
@@ -10,8 +10,9 @@ const formReducer = (state, event) => {
   };
 };
 
-const Register = () => {
+const Register = ({ stateToStats }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
+  const [showProblem, setShowProblem] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -22,8 +23,19 @@ const Register = () => {
       body: JSON.stringify(formData),
     })
       .then((response) => response.text())
-      .then((message) => console.log(message))
-      .catch((error) => console.log("error", error));
+      .then((message) => {
+        if (message === "User registered.") {
+          console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
+          setShowProblem(false);
+          stateToStats();
+        } else {
+          console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
+          setShowProblem(true);
+        }
+      })
+      .catch((error) =>
+        console.error("🚀 ~ file: Register.js ~ line 35 ~ error", error)
+      );
   }
 
   const handleChange = (event) => {
@@ -67,6 +79,11 @@ const Register = () => {
             placeholder="Type a password"
           />
         </Form.Group>
+        {showProblem && (
+          <p className="text-danger font-weight-bold">
+            Registration problem. Please try again.
+          </p>
+        )}
         <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
           Register
         </Button>

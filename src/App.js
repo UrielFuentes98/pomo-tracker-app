@@ -18,8 +18,12 @@ function App() {
           <MainSection />
         </Col>
         <Col xl={2} md={3} style={{ marginTop: "10vh" }}>
-          {userState === "login" && <Login stateToRegister={() => setUserState ("register")} />}
-          {userState === "register" && <Register />}
+          {userState === "login" && (
+            <Login stateToRegister={() => setUserState("register")} />
+          )}
+          {userState === "register" && (
+            <Register stateToStats={() => setUserState("stats")} />
+          )}
           {userState === "stats" && <Stats />}
         </Col>
       </Row>
