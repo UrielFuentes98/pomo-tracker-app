@@ -30,6 +30,8 @@ function App() {
             setMinutes={setMinutes}
             seconds={seconds}
             setSeconds={setSeconds}
+            stats={stats}
+            setStats={setStats}
           />
         </Col>
         <Col xl={2} md={3} style={{ marginTop: "10vh" }}>

@@ -6,7 +6,14 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function MianApp({ minutes, seconds, setMinutes, setSeconds }) {
+function MianApp({
+  minutes,
+  seconds,
+  setMinutes,
+  setSeconds,
+  stats,
+  setStats,
+}) {
   const [nextMinutes, setNextMinutes] = useState(25);
   const [mode, setMode] = useState("pomodoro");
   const [resetTimer, setResetTimer] = useState(true);
@@ -22,7 +29,6 @@ function MianApp({ minutes, seconds, setMinutes, setSeconds }) {
 
   const changeMode = (newMode) => {
     if (sessionState === "wait") {
-      // setNextMinutes(parseInt(newMinutes));
       setMode(newMode);
       defineModeLabel(newMode);
     }
@@ -56,16 +62,44 @@ function MianApp({ minutes, seconds, setMinutes, setSeconds }) {
         if (sessionState === "stop") {
           setResetContinue(true);
         }
+
+        //Update today stats and save it to backend.
+        if (sessionState !== "wait" && mode === "pomodoro") {
+          updateTodayStats();
+        }
         setSessionState(newState);
         if (sessionOver || mode !== "pomodoro") {
           checkNextForSession();
-        } /* else {
-          setCheckTextInput(true);
-        } */
+        }
         setCheckTextInput(true);
         break;
       default:
     }
+  };
+
+  const updateTodayStats = () => {
+    let newSeconds = 0;
+    let newPomodoro = 0;
+    console.log("🚀 ~ file: MainSection.js ~ line 89 ~ seconds", seconds);
+    console.log("🚀 ~ file: MainSection.js ~ line 89 ~ minutes", minutes);
+    console.log(
+      "🚀 ~ file: MainSection.js ~ line 89 ~ nextMinutes",
+      nextMinutes
+    );
+    //Calculate new seconds to adding depending if session was in extra or not.
+    if (sessionOver) {
+      newSeconds = (nextMinutes + minutes) * 60 + seconds;
+      newPomodoro = 1;
+    } else {
+      newSeconds = (nextMinutes - minutes - 1) * 60 + (60 - seconds);
+    }
+    console.log("🚀 ~ file: MainSection.js ~ line 95 ~ newSeconds", newSeconds);
+
+    setStats({
+      ...stats,
+      secToday: stats.secToday + newSeconds,
+      pomoToday: stats.pomoToday + newPomodoro,
+    });
   };
 
   //Calculating next session according to pomodoro standard
