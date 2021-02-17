@@ -98,6 +98,20 @@ function MianApp({
       secMonth: stats.secMonth + newSeconds,
       pomoMonth: stats.pomoMonth + newPomodoro,
     });
+
+    let textPomodoro = newPomodoro ? "true" : "false";
+
+    //Send new record of time.
+    fetch("/sendRecord", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ time: newSeconds, pomodoro: textPomodoro }),
+    })
+      .then((response) => response.text())
+      .then((message) => {
+        console.log("🚀 ~ file: Login.js ~ line 27 ~ message", message);
+      })
+      .catch((error) => console.log("error", error));
   };
 
   //Calculating next session according to pomodoro standard
