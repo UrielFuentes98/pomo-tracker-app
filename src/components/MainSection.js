@@ -80,12 +80,7 @@ function MianApp({
   const updateTodayStats = () => {
     let newSeconds = 0;
     let newPomodoro = 0;
-    console.log("🚀 ~ file: MainSection.js ~ line 89 ~ seconds", seconds);
-    console.log("🚀 ~ file: MainSection.js ~ line 89 ~ minutes", minutes);
-    console.log(
-      "🚀 ~ file: MainSection.js ~ line 89 ~ nextMinutes",
-      nextMinutes
-    );
+
     //Calculate new seconds to adding depending if session was in extra or not.
     if (sessionOver) {
       newSeconds = (nextMinutes + minutes) * 60 + seconds;
@@ -93,12 +88,15 @@ function MianApp({
     } else {
       newSeconds = (nextMinutes - minutes - 1) * 60 + (60 - seconds);
     }
-    console.log("🚀 ~ file: MainSection.js ~ line 95 ~ newSeconds", newSeconds);
 
+    //Update stats state adding new data
     setStats({
-      ...stats,
       secToday: stats.secToday + newSeconds,
       pomoToday: stats.pomoToday + newPomodoro,
+      secWeek: stats.secWeek + newSeconds,
+      pomoWeek: stats.pomoWeek + newPomodoro,
+      secMonth: stats.secMonth + newSeconds,
+      pomoMonth: stats.pomoMonth + newPomodoro,
     });
   };
 
