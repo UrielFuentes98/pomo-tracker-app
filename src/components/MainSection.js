@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function MianApp() {
+function MianApp({ minutes, seconds, setMinutes, setSeconds }) {
   const [nextMinutes, setNextMinutes] = useState(25);
   const [mode, setMode] = useState("pomodoro");
   const [resetTimer, setResetTimer] = useState(true);
@@ -119,6 +119,10 @@ function MianApp() {
             sessionOver={sessionOver}
             setSessionOver={setSessionOver}
             mode={mode}
+            minutes={minutes}
+            setMinutes={setMinutes}
+            seconds={seconds}
+            setSeconds={setSeconds}
           />
         </Col>
       </Row>

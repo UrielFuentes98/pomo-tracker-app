@@ -9,13 +9,28 @@ import Col from "react-bootstrap/Col";
 
 function App() {
   const [userState, setUserState] = useState("login");
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(2);
+  const [stats, setStats] = useState({
+    secToday: 0,
+    pomoToday: 0,
+    secWeek: 0,
+    pomoWeek: 0,
+    secMonth: 0,
+    pomoMonth: 0,
+  });
 
   return (
     <Container fluid>
       <Row>
         <Col xl={4} md={3}></Col>
         <Col xl={5} md={6} style={{ marginTop: "25vh" }}>
-          <MainSection />
+          <MainSection
+            minutes={minutes}
+            setMinutes={setMinutes}
+            seconds={seconds}
+            setSeconds={setSeconds}
+          />
         </Col>
         <Col xl={2} md={3} style={{ marginTop: "10vh" }}>
           {userState === "login" && (
@@ -27,7 +42,7 @@ function App() {
           {userState === "register" && (
             <Register stateToStats={() => setUserState("stats")} />
           )}
-          {userState === "stats" && <Stats />}
+          {userState === "stats" && <Stats stats={stats} />}
         </Col>
       </Row>
     </Container>

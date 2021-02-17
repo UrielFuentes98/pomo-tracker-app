@@ -9,9 +9,11 @@ const Timer = ({
   sessionOver,
   setSessionOver,
   mode,
+  minutes,
+  seconds,
+  setMinutes,
+  setSeconds
 }) => {
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(2);
 
   useInterval(updateTimer, isRunning ? 100 : null);
 
