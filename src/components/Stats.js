@@ -1,5 +1,6 @@
 import React from "react";
 
+//Render minutes and seconds
 const renderTime = (number) => {
   let numString = "";
   if (number < 10) {
@@ -20,7 +21,7 @@ const renderHours = (number) => {
 
 const Stats = ({ stats }) => {
   return (
-    <dvi>
+    <div>
       <h2 className="mb-5">Stats</h2>
       <h4>Today.</h4>
       <div>
@@ -30,6 +31,7 @@ const Stats = ({ stats }) => {
       <div>
         <span className="font-weight-bold">Time: </span>
         <span>
+          {/* Display hours:minutes:seconds */}
           {renderHours(Math.floor(stats.secToday / 3600))}
           {renderTime(Math.floor((stats.secToday / 60) % 60 ))}:
           {renderTime(Math.floor(stats.secToday % 60))}
@@ -61,7 +63,7 @@ const Stats = ({ stats }) => {
           {renderTime(Math.floor(stats.secMonth % 60))}
         </span>
       </div>
-    </dvi>
+    </div>
   );
 };
 

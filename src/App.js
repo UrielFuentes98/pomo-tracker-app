@@ -10,7 +10,7 @@ import Col from "react-bootstrap/Col";
 function App() {
   const [userState, setUserState] = useState("login");
   const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(2);
+  const [seconds, setSeconds] = useState(0);
   const [stats, setStats] = useState({
     secToday: 0,
     pomoToday: 0,
@@ -37,6 +37,7 @@ function App() {
             <Login
               stateToRegister={() => setUserState("register")}
               stateToStats={() => setUserState("stats")}
+              setStats={setStats}
             />
           )}
           {userState === "register" && (
