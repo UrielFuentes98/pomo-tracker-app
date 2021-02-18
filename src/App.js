@@ -42,7 +42,10 @@ function App() {
             />
           )}
           {userState === "register" && (
-            <Register stateToStats={() => setUserState("stats")} />
+            <Register
+              stateToStats={() => setUserState("stats")}
+              stateToLogin={() => setUserState("login")}
+            />
           )}
           {userState === "stats" && (
             <Stats

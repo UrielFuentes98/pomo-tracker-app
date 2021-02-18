@@ -10,7 +10,7 @@ const formReducer = (state, event) => {
   };
 };
 
-const Register = ({ stateToStats }) => {
+const Register = ({ stateToStats, stateToLogin }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [showProblem, setShowProblem] = useState(false);
 
@@ -85,9 +85,24 @@ const Register = ({ stateToStats }) => {
             Registration problem. Please try again.
           </p>
         )}
-        <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
-          Register
-        </Button>
+        <div style={{ position: "relative" }}>
+          <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
+            Register
+          </Button>
+          <Button
+            variant="link"
+            onClick={stateToLogin}
+            style={{
+              boxShadow: "none",
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              color: "darkslategray",
+            }}
+          >
+            Login
+          </Button>
+        </div>
       </Form>
     </div>
   );

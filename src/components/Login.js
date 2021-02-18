@@ -79,10 +79,11 @@ const Login = ({ stateToRegister, stateToStats }) => {
           <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
             Login
           </Button>
-          <a
-            href="#"
+          <Button
+            variant="link"
             onClick={stateToRegister}
             style={{
+              boxShadow: "none",
               position: "absolute",
               bottom: 0,
               right: 0,
@@ -90,7 +91,7 @@ const Login = ({ stateToRegister, stateToStats }) => {
             }}
           >
             Register
-          </a>
+          </Button>
         </div>
       </Form>
     </div>
