@@ -33,9 +33,10 @@ const Register = ({ stateToStats }) => {
           setShowProblem(true);
         }
       })
-      .catch((error) =>
-        console.error("🚀 ~ file: Register.js ~ line 35 ~ error", error)
-      );
+      .catch((error) => {
+        console.error("🚀 ~ file: Register.js ~ line 35 ~ error", error);
+        setShowProblem(true);
+      });
   }
 
   const handleChange = (event) => {

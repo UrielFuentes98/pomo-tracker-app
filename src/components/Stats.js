@@ -1,4 +1,5 @@
-import React from "react";
+import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
 
 //Render minutes and seconds
 const renderTime = (number) => {
@@ -19,7 +20,43 @@ const renderHours = (number) => {
   return hourString;
 };
 
-const Stats = ({ stats }) => {
+const Stats = ({ stats, stateToLogin, setStats }) => {
+  const [showProblem, setShowProblem] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch("/main-stats")
+      .then((res) => res.json())
+      .then((resJSON) => {
+        if (isMounted) {
+          setStats(() => resJSON);
+        }
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const logout = () => {
+    fetch("/logout", {
+      method: "DELETE",
+    })
+      .then((response) => response.text())
+      .then((message) => {
+        console.log("🚀 ~ file: Stats.js ~ line 32 ~ message", message);
+        stateToLogin();
+        if (message === "Session finished.") {
+          setShowProblem(false);
+        } else {
+          setShowProblem(true);
+        }
+      })
+      .catch((error) => {
+        setShowProblem(true);
+        console.error("🚀 ~ file: Register.js ~ line 35 ~ error", error);
+      });
+  };
+
   return (
     <div>
       <h2 className="mb-5">Stats</h2>
@@ -33,7 +70,7 @@ const Stats = ({ stats }) => {
         <span>
           {/* Display hours:minutes:seconds */}
           {renderHours(Math.floor(stats.secToday / 3600))}
-          {renderTime(Math.floor((stats.secToday / 60) % 60 ))}:
+          {renderTime(Math.floor((stats.secToday / 60) % 60))}:
           {renderTime(Math.floor(stats.secToday % 60))}
         </span>
       </div>
@@ -46,7 +83,7 @@ const Stats = ({ stats }) => {
         <span className="font-weight-bold">Time: </span>
         <span>
           {renderHours(Math.floor(stats.secWeek / 3600))}
-          {renderTime(Math.floor((stats.secWeek / 60) % 60 ))}:
+          {renderTime(Math.floor((stats.secWeek / 60) % 60))}:
           {renderTime(Math.floor(stats.secWeek % 60))}
         </span>
       </div>
@@ -59,10 +96,18 @@ const Stats = ({ stats }) => {
         <span className="font-weight-bold">Time: </span>
         <span>
           {renderHours(Math.floor(stats.secMonth / 3600))}
-          {renderTime(Math.floor((stats.secMonth / 60) % 60 ))}:
+          {renderTime(Math.floor((stats.secMonth / 60) % 60))}:
           {renderTime(Math.floor(stats.secMonth % 60))}
         </span>
       </div>
+      <Button
+        variant="outline-secondary"
+        className="btn-sm mt-3 float-right"
+        style={{ boxShadow: "none" }}
+        onClick={logout}
+      >
+        Logout
+      </Button>
     </div>
   );
 };

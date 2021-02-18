@@ -9,7 +9,7 @@ const formReducer = (state, event) => {
   };
 };
 
-const Login = ({ stateToRegister, stateToStats, setStats }) => {
+const Login = ({ stateToRegister, stateToStats }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -32,9 +32,6 @@ const Login = ({ stateToRegister, stateToStats, setStats }) => {
       .then((message) => {
         if (message === "User logged in") {
           console.log("🚀 ~ file: Login.js ~ line 27 ~ message", message);
-          fetch("/main-stats")
-            .then((res) => res.json())
-            .then((resJSON) => setStats(resJSON));
           stateToStats();
           setErrorMessage("");
         } else {
