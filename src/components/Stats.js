@@ -20,7 +20,7 @@ const renderHours = (number) => {
   return hourString;
 };
 
-const Stats = ({ stats, stateToLogin, setStats }) => {
+const Stats = ({ userName, stats, stateToLogin, setStats }) => {
   const [showProblem, setShowProblem] = useState(false);
 
   useEffect(() => {
@@ -59,7 +59,8 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
 
   return (
     <div>
-      <h2 className="mb-5">Stats</h2>
+      <h2 className="mb-1">Stats</h2>
+      <h3 className="mb-5">Hello, {userName}.</h3>
       <h4>Today.</h4>
       <div>
         <span className="font-weight-bold">Pomodoros: </span>

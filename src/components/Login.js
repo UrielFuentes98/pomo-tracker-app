@@ -9,7 +9,7 @@ const formReducer = (state, event) => {
   };
 };
 
-const Login = ({ stateToRegister, stateToStats }) => {
+const Login = ({ stateToRegister, stateToStats, setUserName }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -28,18 +28,22 @@ const Login = ({ stateToRegister, stateToStats }) => {
       body: JSON.stringify(formData),
     })
       //Check response and set error message or stats component
-      .then((response) => response.text())
-      .then((message) => {
-        if (message === "User logged in") {
-          console.log("🚀 ~ file: Login.js ~ line 27 ~ message", message);
+      .then((response) => response.json())
+      .then((userData) => {
+        //If username present in the response, the log in was sucessful
+        if (userData.username) {
+          console.log(
+            "🚀 ~ file: Login.js ~ line 27 ~ userData.msg",
+            userData.msg
+          );
           stateToStats();
           setErrorMessage("");
+          setUserName(userData.username);
         } else {
-          console.log("🚀 ~ file: Login.js ~ line 27 ~ message", message);
-          setErrorMessage(message);
+          setErrorMessage(userData.msg);
         }
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => console.error(error));
   }
 
   const handleChange = (event) => {

@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 
 function App() {
   const [userState, setUserState] = useState("login");
+  const [userName, setUserName] = useState("");
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [stats, setStats] = useState({
@@ -40,6 +41,7 @@ function App() {
             <Login
               stateToRegister={() => setUserState("register")}
               stateToStats={() => setUserState("stats")}
+              setUserName={setUserName}
             />
           )}
           {userState === "register" && (
@@ -50,6 +52,7 @@ function App() {
           )}
           {userState === "stats" && (
             <Stats
+              userName={userName}
               stats={stats}
               stateToLogin={() => setUserState("login")}
               setStats={setStats}
