@@ -26,6 +26,7 @@ function App() {
         <Col xl={4} md={3}></Col>
         <Col xl={5} md={6} style={{ marginTop: "25vh" }}>
           <MainSection
+            userState={userState}
             minutes={minutes}
             setMinutes={setMinutes}
             seconds={seconds}

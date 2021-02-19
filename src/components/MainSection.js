@@ -6,7 +6,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function MianApp({
+function MainApp({
+  userState,
   minutes,
   seconds,
   setMinutes,
@@ -64,7 +65,7 @@ function MianApp({
         }
 
         //Update today stats and save it to backend.
-        if (sessionState !== "wait" && mode === "pomodoro") {
+        if (userState === "stats" && sessionState !== "wait" && mode === "pomodoro") {
           updateTodayStats();
         }
         setSessionState(newState);
@@ -205,4 +206,4 @@ function MianApp({
   );
 }
 
-export default MianApp;
+export default MainApp;
