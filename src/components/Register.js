@@ -13,30 +13,41 @@ const formReducer = (state, event) => {
 const Register = ({ stateToStats, stateToLogin }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [showProblem, setShowProblem] = useState(false);
+  const [problemText, setProblemText] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    fetch("/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.text())
-      .then((message) => {
-        if (message === "User registered.") {
-          console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
-          setShowProblem(false);
-          stateToStats();
-        } else {
-          console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
-          setShowProblem(true);
-        }
+    if (formData.password && formData.username && formData.email) {
+      fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       })
-      .catch((error) => {
-        console.error("🚀 ~ file: Register.js ~ line 35 ~ error", error);
-        setShowProblem(true);
-      });
+        .then((response) => response.text())
+        .then((message) => {
+          if (message === "User registered.") {
+            console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
+            setShowProblem(false);
+            stateToStats();
+          } else {
+            console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
+            //Check if the error was related to unique rule.
+            if (message.search(/unique/) > -1) {
+              setProblemText("Username or email already exists.");
+            } else {
+              setProblemText(message);
+            }
+            setShowProblem(true);
+          }
+        })
+        .catch((error) => {
+          console.error("🚀 ~ file: Register.js ~ line 35 ~ error", error);
+          setShowProblem(true);
+        });
+    } else {
+      setProblemText("Missing field in register form.");
+      setShowProblem(true);
+    }
   }
 
   const handleChange = (event) => {
@@ -81,9 +92,7 @@ const Register = ({ stateToStats, stateToLogin }) => {
           />
         </Form.Group>
         {showProblem && (
-          <p className="text-danger font-weight-bold">
-            Registration problem. Please try again.
-          </p>
+          <p className="text-danger font-weight-bold">{problemText}</p>
         )}
         <div style={{ position: "relative" }}>
           <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
@@ -95,7 +104,7 @@ const Register = ({ stateToStats, stateToLogin }) => {
             style={{
               boxShadow: "none",
               position: "absolute",
-              bottom: 0,
+              bottom: -10,
               right: 0,
               color: "darkslategray",
             }}

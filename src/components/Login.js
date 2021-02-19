@@ -85,7 +85,7 @@ const Login = ({ stateToRegister, stateToStats }) => {
             style={{
               boxShadow: "none",
               position: "absolute",
-              bottom: 0,
+              bottom: -10,
               right: 0,
               color: "darkslategray",
             }}
