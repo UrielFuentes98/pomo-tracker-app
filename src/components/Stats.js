@@ -20,7 +20,7 @@ const renderHours = (number) => {
   return hourString;
 };
 
-const Stats = ({ userName, stats, stateToLogin, setStats }) => {
+const Stats = ({ stats, stateToLogin, setStats }) => {
   const [problemText, setProblemText] = useState("");
   const [problemPresent, setProblemPresent] = useState(false);
 
@@ -71,7 +71,7 @@ const Stats = ({ userName, stats, stateToLogin, setStats }) => {
   return (
     <div>
       <h2 className="mb-1 mt-xl-5">Stats</h2>
-      {!problemPresent ? <h3 className="mb-5">Hello, {userName}.</h3> : null}
+      {!problemPresent && stats.username ? <h3 className="mb-5">Hello, {stats.username}.</h3> : null}
       <p className="text-danger font-weight-bold">
         {problemPresent ? problemText : ""}
       </p>

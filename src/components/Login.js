@@ -9,7 +9,7 @@ const formReducer = (state, event) => {
   };
 };
 
-const Login = ({ stateToRegister, stateToStats, setUserName }) => {
+const Login = ({ stateToRegister, stateToStats }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -28,7 +28,13 @@ const Login = ({ stateToRegister, stateToStats, setUserName }) => {
       body: JSON.stringify(formData),
     })
       //Check response and set error message or stats component
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status !== 500) {
+          return response.json();
+        } else {
+          return { msg: "Sorry couldn't log in" };
+        }
+      })
       .then((userData) => {
         //If username present in the response, the log in was sucessful
         if (userData.username) {
@@ -38,7 +44,6 @@ const Login = ({ stateToRegister, stateToStats, setUserName }) => {
           );
           stateToStats();
           setErrorMessage("");
-          setUserName(userData.username);
         } else {
           setErrorMessage(userData.msg);
         }

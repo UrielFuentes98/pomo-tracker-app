@@ -53,6 +53,7 @@ function App() {
           {userState === "stats" && (
             <Stats
               userName={userName}
+              setUserName={setUserName}
               stats={stats}
               stateToLogin={() => setUserState("login")}
               setStats={setStats}
