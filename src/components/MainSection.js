@@ -101,7 +101,7 @@ function MainApp({
     }
 
     //Update stats state adding new data
-    setStats({
+    setStats({...stats, 
       secToday: stats.secToday + newSeconds,
       pomoToday: stats.pomoToday + newPomodoro,
       secWeek: stats.secWeek + newSeconds,
