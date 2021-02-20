@@ -5,6 +5,7 @@ import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import clickFile from "../assets/sounds/click.mp3";
 
 function MainApp({
   userState,
@@ -25,6 +26,7 @@ function MainApp({
   const [cycles, setCycles] = useState(0);
   const [resetContinue, setResetContinue] = useState(false);
   const [modeLabel, setModeLabel] = useState("Pomodoro");
+  const clickSound = new Audio(clickFile);
 
   // Update session mode and next initial time.
 
@@ -44,35 +46,43 @@ function MainApp({
           setCheckTextInput(true);
           setIsTimerRunning(true);
           setSessionState(newState);
+          clickSound.play();
         }
         break;
       case "continue":
         if (sessionState === "stop") {
           setIsTimerRunning(true);
           setSessionState(newState);
+          clickSound.play();
         }
         break;
       case "stop":
         if (sessionState === "run" || sessionState === "continue") {
           setIsTimerRunning(false);
           setSessionState(newState);
+          clickSound.play();
         }
         break;
       case "wait":
-        setIsTimerRunning(false);
-        if (sessionState === "stop") {
-          setResetContinue(true);
-        }
+        if (sessionState !== "wait") {
+          setIsTimerRunning(false);
+          if (sessionState === "stop") {
+            setResetContinue(true);
+          }
 
-        //Update today stats and save it to backend.
-        if (userState === "stats" && sessionState !== "wait" && mode === "pomodoro") {
-          updateTodayStats();
+          //Update today stats and save it to backend.
+          if (userState === "stats" && mode === "pomodoro") {
+            updateTodayStats();
+          }
+
+          //Check if a session change is necessary
+          if (sessionOver || mode !== "pomodoro") {
+            checkNextForSession();
+          }
+          setCheckTextInput(true);
+          clickSound.play();
+          setSessionState(newState);
         }
-        setSessionState(newState);
-        if (sessionOver || mode !== "pomodoro") {
-          checkNextForSession();
-        }
-        setCheckTextInput(true);
         break;
       default:
     }
@@ -109,9 +119,7 @@ function MainApp({
       body: JSON.stringify({ time: newSeconds, pomodoro: textPomodoro }),
     })
       .then((response) => response.text())
-      .then((message) => {
-        console.log("🚀 ~ file: Login.js ~ line 27 ~ message", message);
-      })
+      .then((message) => {})
       .catch((error) => console.log("error", error));
   };
 

@@ -1,5 +1,6 @@
 import useInterval from "../useInterval";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import alarmFile from "../../assets/sounds/alarm_sound.mp3";
 
 const Timer = ({
   isRunning,
@@ -12,11 +13,11 @@ const Timer = ({
   minutes,
   seconds,
   setMinutes,
-  setSeconds
+  setSeconds,
 }) => {
+  useInterval(updateTimer, isRunning ? 1000 : null);
 
-  useInterval(updateTimer, isRunning ? 100 : null);
-
+  //Update page title with session name and time
   useEffect(() => {
     let titleString = ``;
     if (!sessionOver) {
@@ -50,6 +51,8 @@ const Timer = ({
     // eslint-disable-next-line
   }, [resetTimer]);
 
+  const alarmSound = new Audio(alarmFile);
+
   // Update timer function for normal section and extra section.
   function updateTimer() {
     if (!sessionOver) {
@@ -61,6 +64,7 @@ const Timer = ({
       } else {
         console.log("Setting extra state");
         setSessionOver(true);
+        alarmSound.play();
       }
       //Update minutes and secods if session ended.
     } else {

@@ -21,7 +21,8 @@ const renderHours = (number) => {
 };
 
 const Stats = ({ userName, stats, stateToLogin, setStats }) => {
-  const [showProblem, setShowProblem] = useState(false);
+  const [problemText, setProblemText] = useState("");
+  const [problemPresent, setProblemPresent] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -31,10 +32,15 @@ const Stats = ({ userName, stats, stateToLogin, setStats }) => {
         if (isMounted) {
           setStats(() => resJSON);
         }
+      })
+      .catch((error) => {
+        setProblemText("Sorry. There was a problem getting the stats.");
+        setProblemPresent(true);
       });
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line
   }, []);
 
   const logout = () => {
@@ -43,24 +49,32 @@ const Stats = ({ userName, stats, stateToLogin, setStats }) => {
     })
       .then((response) => response.text())
       .then((message) => {
-        console.log("🚀 ~ file: Stats.js ~ line 32 ~ message", message);
-        stateToLogin();
         if (message === "Session finished.") {
-          setShowProblem(false);
+          setProblemText("");
+          setProblemPresent(false);
+          stateToLogin();
         } else {
-          setShowProblem(true);
+          setProblemPresent(true);
+          setProblemText("Sorry. Couldn't log out.");
         }
       })
       .catch((error) => {
-        setShowProblem(true);
-        console.error("🚀 ~ file: Register.js ~ line 35 ~ error", error);
+        setProblemPresent(true);
+        setProblemText("Sorry. Couldn't log out.");
+        console.error(
+          "🚀 ~ file: Register.js ~ line 35 ~ error",
+          error.message
+        );
       });
   };
 
   return (
     <div>
       <h2 className="mb-1 mt-xl-5">Stats</h2>
-      <h3 className="mb-5">Hello, {userName}.</h3>
+      {!problemPresent ? <h3 className="mb-5">Hello, {userName}.</h3> : null}
+      <p className="text-danger font-weight-bold">
+        {problemPresent ? problemText : ""}
+      </p>
       <h4>Today.</h4>
       <div>
         <span className="font-weight-bold">Pomodoros: </span>
