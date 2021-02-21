@@ -29,26 +29,21 @@ const Login = ({ stateToRegister, stateToStats }) => {
     })
       //Check response and set error message or stats component
       .then((response) => {
-        if (response.status !== 500) {
-          return response.json();
-        } else {
-          return { msg: "Sorry couldn't log in" };
-        }
+        return response.text();
       })
-      .then((userData) => {
-        //If username present in the response, the log in was sucessful
-        if (userData.username) {
-          console.log(
-            "🚀 ~ file: Login.js ~ line 27 ~ userData.msg",
-            userData.msg
-          );
+      .then((message) => {
+        if (message === "User logged in") {
           stateToStats();
           setErrorMessage("");
         } else {
-          setErrorMessage(userData.msg);
+          console.log("🚀 ~ file: Login.js ~ line 35 ~ message", message);
+          setErrorMessage(message);
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setErrorMessage("Couldn't log in.");
+        console.error(error);
+      });
   }
 
   const handleChange = (event) => {
