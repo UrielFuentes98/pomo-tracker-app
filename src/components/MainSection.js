@@ -101,7 +101,8 @@ function MainApp({
     }
 
     //Update stats state adding new data
-    setStats({...stats, 
+    setStats({
+      ...stats,
       secToday: stats.secToday + newSeconds,
       pomoToday: stats.pomoToday + newPomodoro,
       secWeek: stats.secWeek + newSeconds,
@@ -117,6 +118,7 @@ function MainApp({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ time: newSeconds, pomodoro: textPomodoro }),
+      credentials: "include",
     })
       .then((response) => response.text())
       .then((message) => {})

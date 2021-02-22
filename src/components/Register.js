@@ -22,6 +22,7 @@ const Register = ({ stateToStats, stateToLogin }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+        credentials: "include",
       })
         .then((response) => response.text())
         .then((message) => {

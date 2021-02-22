@@ -26,7 +26,9 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
 
   useEffect(() => {
     let isMounted = true;
-    fetch("https://pomo-tracker-app.herokuapp.com/main-stats")
+    fetch("https://pomo-tracker-app.herokuapp.com/main-stats", {
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((resJSON) => {
         if (isMounted) {
@@ -46,6 +48,7 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
   const logout = () => {
     fetch("https://pomo-tracker-app.herokuapp.com/logout", {
       method: "DELETE",
+      credentials: "include",
     })
       .then((response) => response.text())
       .then((message) => {
@@ -71,7 +74,9 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
   return (
     <div>
       <h2 className="mb-1 mt-xl-5">Stats</h2>
-      {!problemPresent && stats.username ? <h3 className="mb-5">Hello, {stats.username}.</h3> : null}
+      {!problemPresent && stats.username ? (
+        <h3 className="mb-5">Hello, {stats.username}.</h3>
+      ) : null}
       <p className="text-danger font-weight-bold">
         {problemPresent ? problemText : ""}
       </p>
