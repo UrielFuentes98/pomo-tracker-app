@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.js": "/pomo-tracker-react/static/js/main.08ae548f.chunk.js",
-    "main.js.map": "/pomo-tracker-react/static/js/main.08ae548f.chunk.js.map",
-    "runtime-main.js": "/pomo-tracker-react/static/js/runtime-main.6a9d4aa9.js",
-    "runtime-main.js.map": "/pomo-tracker-react/static/js/runtime-main.6a9d4aa9.js.map",
-    "static/css/2.150d169a.chunk.css": "/pomo-tracker-react/static/css/2.150d169a.chunk.css",
-    "static/js/2.40ba9e7a.chunk.js": "/pomo-tracker-react/static/js/2.40ba9e7a.chunk.js",
-    "static/js/2.40ba9e7a.chunk.js.map": "/pomo-tracker-react/static/js/2.40ba9e7a.chunk.js.map",
-    "static/js/3.9d712466.chunk.js": "/pomo-tracker-react/static/js/3.9d712466.chunk.js",
-    "static/js/3.9d712466.chunk.js.map": "/pomo-tracker-react/static/js/3.9d712466.chunk.js.map",
-    "index.html": "/pomo-tracker-react/index.html",
-    "static/css/2.150d169a.chunk.css.map": "/pomo-tracker-react/static/css/2.150d169a.chunk.css.map",
-    "static/js/2.40ba9e7a.chunk.js.LICENSE.txt": "/pomo-tracker-react/static/js/2.40ba9e7a.chunk.js.LICENSE.txt",
-    "static/media/alarm_sound.b2009aa7.mp3": "/pomo-tracker-react/static/media/alarm_sound.b2009aa7.mp3",
-    "static/media/click.07b2086f.mp3": "/pomo-tracker-react/static/media/click.07b2086f.mp3"
+    "main.js": "/pomo-tracker-frontend/static/js/main.df1c7614.chunk.js",
+    "main.js.map": "/pomo-tracker-frontend/static/js/main.df1c7614.chunk.js.map",
+    "runtime-main.js": "/pomo-tracker-frontend/static/js/runtime-main.bb384d6d.js",
+    "runtime-main.js.map": "/pomo-tracker-frontend/static/js/runtime-main.bb384d6d.js.map",
+    "static/css/2.150d169a.chunk.css": "/pomo-tracker-frontend/static/css/2.150d169a.chunk.css",
+    "static/js/2.40ba9e7a.chunk.js": "/pomo-tracker-frontend/static/js/2.40ba9e7a.chunk.js",
+    "static/js/2.40ba9e7a.chunk.js.map": "/pomo-tracker-frontend/static/js/2.40ba9e7a.chunk.js.map",
+    "static/js/3.9d712466.chunk.js": "/pomo-tracker-frontend/static/js/3.9d712466.chunk.js",
+    "static/js/3.9d712466.chunk.js.map": "/pomo-tracker-frontend/static/js/3.9d712466.chunk.js.map",
+    "index.html": "/pomo-tracker-frontend/index.html",
+    "static/css/2.150d169a.chunk.css.map": "/pomo-tracker-frontend/static/css/2.150d169a.chunk.css.map",
+    "static/js/2.40ba9e7a.chunk.js.LICENSE.txt": "/pomo-tracker-frontend/static/js/2.40ba9e7a.chunk.js.LICENSE.txt",
+    "static/media/alarm_sound.b2009aa7.mp3": "/pomo-tracker-frontend/static/media/alarm_sound.b2009aa7.mp3",
+    "static/media/click.07b2086f.mp3": "/pomo-tracker-frontend/static/media/click.07b2086f.mp3"
   },
   "entrypoints": [
-    "static/js/runtime-main.6a9d4aa9.js",
+    "static/js/runtime-main.bb384d6d.js",
     "static/css/2.150d169a.chunk.css",
     "static/js/2.40ba9e7a.chunk.js",
-    "static/js/main.08ae548f.chunk.js"
+    "static/js/main.df1c7614.chunk.js"
   ]
 }
