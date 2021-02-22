@@ -2,7 +2,7 @@
   "name": "pomo-tracker-react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://pomo-tracker-app.herokuapp.com/",
+  "proxy": "http://localhost:8080",
   "homepage": "http://urielfuentes98.github.io/pomo-tracker-frontend",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",

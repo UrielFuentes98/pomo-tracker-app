@@ -26,7 +26,7 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/main-stats")
+    fetch("https://pomo-tracker-app.herokuapp.com/main-stats")
       .then((res) => res.json())
       .then((resJSON) => {
         if (isMounted) {
@@ -44,7 +44,7 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
   }, []);
 
   const logout = () => {
-    fetch("/logout", {
+    fetch("https://pomo-tracker-app.herokuapp.com/logout", {
       method: "DELETE",
     })
       .then((response) => response.text())

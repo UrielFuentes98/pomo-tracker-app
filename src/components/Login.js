@@ -22,7 +22,7 @@ const Login = ({ stateToRegister, stateToStats }) => {
   function handleSubmit(event) {
     event.preventDefault();
 
-    fetch("/login", {
+    fetch("https://pomo-tracker-app.herokuapp.com/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

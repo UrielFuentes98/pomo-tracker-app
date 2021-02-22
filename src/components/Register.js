@@ -18,7 +18,7 @@ const Register = ({ stateToStats, stateToLogin }) => {
   function handleSubmit(event) {
     event.preventDefault();
     if (formData.password && formData.username && formData.email) {
-      fetch("/register", {
+      fetch("https://pomo-tracker-app.herokuapp.com/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

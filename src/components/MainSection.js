@@ -113,7 +113,7 @@ function MainApp({
     let textPomodoro = newPomodoro ? "true" : "false";
 
     //Send new record of time.
-    fetch("/sendRecord", {
+    fetch("https://pomo-tracker-app.herokuapp.com/sendRecord", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ time: newSeconds, pomodoro: textPomodoro }),
