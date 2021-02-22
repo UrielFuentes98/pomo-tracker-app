@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/pomo-tracker-frontend/static/js/main.3548d800.chunk.js",
-    "main.js.map": "/pomo-tracker-frontend/static/js/main.3548d800.chunk.js.map",
+    "main.js": "/pomo-tracker-frontend/static/js/main.55913906.chunk.js",
+    "main.js.map": "/pomo-tracker-frontend/static/js/main.55913906.chunk.js.map",
     "runtime-main.js": "/pomo-tracker-frontend/static/js/runtime-main.bb384d6d.js",
     "runtime-main.js.map": "/pomo-tracker-frontend/static/js/runtime-main.bb384d6d.js.map",
     "static/css/2.150d169a.chunk.css": "/pomo-tracker-frontend/static/css/2.150d169a.chunk.css",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.bb384d6d.js",
     "static/css/2.150d169a.chunk.css",
     "static/js/2.40ba9e7a.chunk.js",
-    "static/js/main.3548d800.chunk.js"
+    "static/js/main.55913906.chunk.js"
   ]
 }
