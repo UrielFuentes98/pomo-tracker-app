@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useReducer, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -13,11 +13,6 @@ const Login = ({ stateToRegister, stateToStats }) => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    if (document.cookie) {
-      stateToStats();
-    }
-  });
 
   function handleSubmit(event) {
     event.preventDefault();

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Stats from "./components/Stats";
@@ -20,6 +20,22 @@ function App() {
     secMonth: 0,
     pomoMonth: 0,
   });
+
+  useEffect(() => {
+    fetch("https://pomo-tracker-app.herokuapp.com/checkCookie", {
+      credentials: "include",
+    }).then((response) => {
+        if (response.ok) {
+          setUserState("stats");
+        } else {
+          setUserState("login");
+        }
+      })
+      .catch((err) => {
+        console.log("🚀 ~ file: App.js ~ line 32 ~ err", err);
+        setUserState("login");
+      });
+  }, []);
 
   return (
     <Container fluid>
