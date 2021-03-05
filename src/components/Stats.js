@@ -1,5 +1,7 @@
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import { useHistory } from "react-router-dom";
 
 //Render minutes and seconds
 const renderTime = (number) => {
@@ -12,22 +14,32 @@ const renderTime = (number) => {
   return numString;
 };
 
-const renderHours = (number) => {
+//Render string to display hours.
+const renderHours = (hours) => {
   let hourString = "";
-  if (number > 0) {
-    hourString = number.toString() + ":";
+  if (hours > 0) {
+    hourString = hours.toString() + "hour";
+    if (hours > 1) {
+      hourString += "s"
+    }
+    hourString += ", "
   }
+  
   return hourString;
 };
 
-const Stats = ({ stats, stateToLogin, setStats }) => {
+const Stats = ({ stats, setStats }) => {
   const [problemText, setProblemText] = useState("");
   const [problemPresent, setProblemPresent] = useState(false);
+  const history = useHistory();
+  const [minutes, setMinutes] = useState({ today: 0, week: 0, month: 0 });
+  const [hours, setHours] = useState({ today: 0, week: 0, month: 0 });
 
   useEffect(() => {
     let isMounted = true;
-    fetch("https://pomo-tracker-app.herokuapp.com/main-stats", {
-      credentials: "include",
+    const domain = process.env.REACT_APP_BACKEND_URL || "";
+    fetch(`${domain}/main-stats?date=${dayjs().format("YYYY-MM-DD")}`, {
+      // credentials: "include",
     })
       .then((res) => res.json())
       .then((resJSON) => {
@@ -45,8 +57,23 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    //Calculate hours and minutes for each category
+    setHours({
+      today: Math.floor(stats.secToday / 3600),
+      week: Math.floor(stats.secWeek / 3600),
+      month: Math.floor(stats.secMonth / 3600),
+    });
+    setMinutes({
+      today: Math.floor((stats.secToday / 60) % 60),
+      week: Math.floor((stats.secWeek / 60) % 60),
+      month: Math.floor((stats.secMonth / 60) % 60),
+    });
+  }, [stats.secToday, stats.secWeek, stats.secMonth]);
+
   const logout = () => {
-    fetch("https://pomo-tracker-app.herokuapp.com/logout", {
+    const domain = process.env.REACT_APP_BACKEND_URL || "";
+    fetch(`${domain}/logout`, {
       method: "DELETE",
       credentials: "include",
     })
@@ -55,7 +82,7 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
         if (message === "Session finished.") {
           setProblemText("");
           setProblemPresent(false);
-          stateToLogin();
+          history.push("/login");
         } else {
           setProblemPresent(true);
           setProblemText("Sorry. Couldn't log out.");
@@ -75,7 +102,7 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
     <div>
       <h2 className="mb-1 mt-xl-5">Stats</h2>
       {!problemPresent && stats.username ? (
-        <h3 className="mb-5">Hello, {stats.username}.</h3>
+        <h3 className="mb-3">Hello, {stats.username}.</h3>
       ) : null}
       <p className="text-danger font-weight-bold">
         {problemPresent ? problemText : ""}
@@ -88,10 +115,8 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
       <div>
         <span className="font-weight-bold">Time: </span>
         <span>
-          {/* Display hours:minutes:seconds */}
-          {renderHours(Math.floor(stats.secToday / 3600))}
-          {renderTime(Math.floor((stats.secToday / 60) % 60))}:
-          {renderTime(Math.floor(stats.secToday % 60))}
+          {renderHours(hours.today)}
+          {minutes.today} min.
         </span>
       </div>
       <h4 className="mt-3">This week.</h4>
@@ -102,9 +127,8 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
       <div>
         <span className="font-weight-bold">Time: </span>
         <span>
-          {renderHours(Math.floor(stats.secWeek / 3600))}
-          {renderTime(Math.floor((stats.secWeek / 60) % 60))}:
-          {renderTime(Math.floor(stats.secWeek % 60))}
+          {renderHours(hours.week)}
+          {minutes.week} min.
         </span>
       </div>
       <h4 className="mt-3">This month.</h4>
@@ -115,9 +139,8 @@ const Stats = ({ stats, stateToLogin, setStats }) => {
       <div>
         <span className="font-weight-bold">Time: </span>
         <span>
-          {renderHours(Math.floor(stats.secMonth / 3600))}
-          {renderTime(Math.floor((stats.secMonth / 60) % 60))}:
-          {renderTime(Math.floor(stats.secMonth % 60))}
+          {renderHours(hours.month)}
+          {minutes.month} min.
         </span>
       </div>
       <Button
