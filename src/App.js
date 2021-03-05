@@ -27,7 +27,7 @@ function App() {
     console.log("Current date:", dayjs().format());
     const domain = process.env.REACT_APP_BACKEND_URL || "";
     fetch(`${domain}/checkCookie`, {
-      // credentials: "include",
+      credentials: "include",
     })
       .then((response) => {
         if (response.ok) {

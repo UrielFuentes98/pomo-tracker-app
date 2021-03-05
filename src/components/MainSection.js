@@ -1,8 +1,8 @@
 import Timer from "./MainApp/Timer";
 import ControlButtons from "./MainApp/ControlButtons";
 import TextInputs from "./MainApp/TextInputs";
-import { useState, useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useState } from "react";
+import { withRouter } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -28,9 +28,8 @@ function MainApp({
   const [cycles, setCycles] = useState(0);
   const [resetContinue, setResetContinue] = useState(false);
   const [modeLabel, setModeLabel] = useState("Pomodoro");
-  const clickSound = new Audio(clickFile);
-  let inStats = useRouteMatch('/stats');
 
+  const clickSound = new Audio(clickFile);
 
   // Update session mode and next initial time.
 
@@ -75,7 +74,7 @@ function MainApp({
           }
 
           //Update today stats and save it to backend.
-          if ( mode === "pomodoro") {
+          if (mode === "pomodoro" && location.pathname === "/stats") {
             updateTodayStats();
           }
 
@@ -127,7 +126,7 @@ function MainApp({
         pomodoro: textPomodoro,
         date: dayjs().format("YYYY-MM-DD"),
       }),
-      // credentials: "include",
+      credentials: "include",
     })
       .then((response) => response.text())
       .then((message) => {})
@@ -225,4 +224,4 @@ function MainApp({
   );
 }
 
-export default MainApp;
+export default withRouter(MainApp);

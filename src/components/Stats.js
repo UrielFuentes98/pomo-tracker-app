@@ -3,16 +3,6 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useHistory } from "react-router-dom";
 
-//Render minutes and seconds
-const renderTime = (number) => {
-  let numString = "";
-  if (number < 10) {
-    numString = "0" + number.toString();
-  } else {
-    numString = number.toString();
-  }
-  return numString;
-};
 
 //Render string to display hours.
 const renderHours = (hours) => {
@@ -20,11 +10,11 @@ const renderHours = (hours) => {
   if (hours > 0) {
     hourString = hours.toString() + "hour";
     if (hours > 1) {
-      hourString += "s"
+      hourString += "s";
     }
-    hourString += ", "
+    hourString += ", ";
   }
-  
+
   return hourString;
 };
 
@@ -39,9 +29,15 @@ const Stats = ({ stats, setStats }) => {
     let isMounted = true;
     const domain = process.env.REACT_APP_BACKEND_URL || "";
     fetch(`${domain}/main-stats?date=${dayjs().format("YYYY-MM-DD")}`, {
-      // credentials: "include",
+      credentials: "include",
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.text();
+        }
+      })
       .then((resJSON) => {
         if (isMounted) {
           setStats(() => resJSON);
@@ -49,6 +45,7 @@ const Stats = ({ stats, setStats }) => {
       })
       .catch((error) => {
         setProblemText("Sorry. There was a problem getting the stats.");
+        console.log(error);
         setProblemPresent(true);
       });
     return () => {
