@@ -2,13 +2,15 @@ import Timer from "./MainApp/Timer";
 import ControlButtons from "./MainApp/ControlButtons";
 import TextInputs from "./MainApp/TextInputs";
 import { useState } from "react";
+import { withRouter } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import clickFile from "../assets/sounds/click.mp3";
+import dayjs from "dayjs";
 
 function MainApp({
-  userState,
+  location,
   minutes,
   seconds,
   setMinutes,
@@ -26,6 +28,7 @@ function MainApp({
   const [cycles, setCycles] = useState(0);
   const [resetContinue, setResetContinue] = useState(false);
   const [modeLabel, setModeLabel] = useState("Pomodoro");
+
   const clickSound = new Audio(clickFile);
 
   // Update session mode and next initial time.
@@ -71,7 +74,7 @@ function MainApp({
           }
 
           //Update today stats and save it to backend.
-          if (userState === "stats" && mode === "pomodoro") {
+          if (mode === "pomodoro" && location.pathname === "/stats") {
             updateTodayStats();
           }
 
@@ -114,10 +117,15 @@ function MainApp({
     let textPomodoro = newPomodoro ? "true" : "false";
 
     //Send new record of time.
-    fetch("https://pomo-tracker-app.herokuapp.com/sendRecord", {
+    const domain = process.env.REACT_APP_BACKEND_URL || "";
+    fetch(`${domain}/sendRecord`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ time: newSeconds, pomodoro: textPomodoro }),
+      body: JSON.stringify({
+        time: newSeconds,
+        pomodoro: textPomodoro,
+        date: dayjs().format("YYYY-MM-DD"),
+      }),
       credentials: "include",
     })
       .then((response) => response.text())
@@ -216,4 +224,4 @@ function MainApp({
   );
 }
 
-export default MainApp;
+export default withRouter(MainApp);

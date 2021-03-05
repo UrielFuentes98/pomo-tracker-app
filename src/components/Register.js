@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState, useReducer } from "react";
@@ -10,15 +11,17 @@ const formReducer = (state, event) => {
   };
 };
 
-const Register = ({ stateToStats, stateToLogin }) => {
+const Register = () => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const [showProblem, setShowProblem] = useState(false);
   const [problemText, setProblemText] = useState("");
+  const history = useHistory();
 
   function handleSubmit(event) {
     event.preventDefault();
     if (formData.password && formData.username && formData.email) {
-      fetch("https://pomo-tracker-app.herokuapp.com/register", {
+      const domain = process.env.REACT_APP_BACKEND_URL || "";
+      fetch(`${domain}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -29,7 +32,7 @@ const Register = ({ stateToStats, stateToLogin }) => {
           if (message === "User registered.") {
             console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
             setShowProblem(false);
-            stateToStats();
+            history.push("/stats");
           } else {
             console.log("🚀 ~ file: Register.js ~ line 28 ~ message", message);
             //Check if the error was related to unique rule.
@@ -99,19 +102,18 @@ const Register = ({ stateToStats, stateToLogin }) => {
           <Button variant="primary" type="submit" style={{ boxShadow: "none" }}>
             Register
           </Button>
-          <Button
-            variant="link"
-            onClick={stateToLogin}
+          <Link
+            to="/login"
             style={{
               boxShadow: "none",
               position: "absolute",
-              bottom: -10,
+              bottom: 0,
               right: 0,
               color: "darkslategray",
             }}
           >
             Login
-          </Button>
+          </Link>
         </div>
       </Form>
     </div>
