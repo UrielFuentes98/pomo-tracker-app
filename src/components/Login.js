@@ -17,6 +17,9 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
+  
+  //Send login request when Login form is submitted.
+
   function handleSubmit(event) {
     event.preventDefault();
     const domain = process.env.REACT_APP_BACKEND_URL || "";

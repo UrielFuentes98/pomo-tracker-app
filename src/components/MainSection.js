@@ -134,7 +134,7 @@ function MainApp({
   };
 
   //Calculating next session according to pomodoro standard
-  //and present session
+  //and set session
   const checkNextForSession = () => {
     if (mode === "pomodoro") {
       if (cycles < 3) {

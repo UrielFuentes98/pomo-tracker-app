@@ -17,8 +17,11 @@ const Register = () => {
   const [problemText, setProblemText] = useState("");
   const history = useHistory();
 
+  //Send register request when Register form is submitted.
+
   function handleSubmit(event) {
     event.preventDefault();
+    //Check all fields are filled
     if (formData.password && formData.username && formData.email) {
       const domain = process.env.REACT_APP_BACKEND_URL || "";
       fetch(`${domain}/register`, {

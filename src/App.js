@@ -23,6 +23,9 @@ function App() {
     pomoMonth: 0,
   });
 
+  //Send request to check if cookie exists with open session 
+  //and sign in if so, else go to login
+  
   useEffect(() => {
     console.log("Current date:", dayjs().format());
     const domain = process.env.REACT_APP_BACKEND_URL || "";

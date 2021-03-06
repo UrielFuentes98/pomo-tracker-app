@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-// TO-DO Fix Stop/Continue Button
 
 function ControlButtons({
   updateState,
@@ -18,7 +17,7 @@ function ControlButtons({
     // eslint-disable-next-line
   }, [resetContinue]);
 
-  // Change state of control button
+  // Change state of timer
   const setControlState = (newState) => {
     if (sessionState !== "wait") {
       setControlText(newState);
@@ -38,7 +37,6 @@ function ControlButtons({
         style={{ border: "1px solid black", boxShadow: "none" }}
         onClick={() => updateState("run")}
       >
-        {" "}
         Start
       </Button>
       <Button

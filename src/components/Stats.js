@@ -25,6 +25,7 @@ const Stats = ({ stats, setStats }) => {
   const [minutes, setMinutes] = useState({ today: 0, week: 0, month: 0 });
   const [hours, setHours] = useState({ today: 0, week: 0, month: 0 });
 
+  // Send main stats request in first render and save it in stats state.
   useEffect(() => {
     let isMounted = true;
     const domain = process.env.REACT_APP_BACKEND_URL || "";
@@ -68,6 +69,7 @@ const Stats = ({ stats, setStats }) => {
     });
   }, [stats.secToday, stats.secWeek, stats.secMonth]);
 
+  //Send logout request to delete session token in backend and go to /login
   const logout = () => {
     const domain = process.env.REACT_APP_BACKEND_URL || "";
     fetch(`${domain}/logout`, {
