@@ -99,7 +99,7 @@ const Stats = ({ stats, setStats }) => {
 
   return (
     <div>
-      <h2 className="mb-1 mt-xl-5">Stats</h2>
+      <h2 className="mb-1 mt-xl-5 font-weight-bold" style={{color: "saddlebrown"}}>Stats</h2>
       {!problemPresent && stats.username ? (
         <h3 className="mb-3">Hello, {stats.username}.</h3>
       ) : null}
