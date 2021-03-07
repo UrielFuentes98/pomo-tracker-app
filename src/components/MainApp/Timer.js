@@ -77,6 +77,7 @@ const Timer = ({
     }
   }
 
+  //Convert to string and add leading zero
   const renderTime = (number) => {
     let numString = "";
     if (number < 10) {

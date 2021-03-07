@@ -27,6 +27,7 @@ function TextInputs({
     switch (mode) {
       case "pomodoro":
         setRadioValues({ pomodoro: true, break: false, longBreak: false });
+        //If invalid input -> set default value, else read value
         if (invalidPomoInput) {
           setNextTimer(25);
         } else {

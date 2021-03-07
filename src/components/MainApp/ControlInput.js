@@ -8,6 +8,7 @@ function ControlInput({
   invalidInput,
   setInvalidInput,
 }) {
+  
   //Determine if input is valid when input is active.
   const validAndSaveInput = (e) => {
     if (inputChecked) {
