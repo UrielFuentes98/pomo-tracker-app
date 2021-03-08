@@ -8,11 +8,11 @@ import { useHistory } from "react-router-dom";
 const renderHours = (hours) => {
   let hourString = "";
   if (hours > 0) {
-    hourString = hours.toString() + "hour";
+    hourString = hours.toString() + " hr";
     if (hours > 1) {
       hourString += "s";
     }
-    hourString += ", ";
+    hourString += ". ";
   }
 
   return hourString;
