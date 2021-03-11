@@ -3,4 +3,4 @@ Pomodoro technique app that lets you set custom pomodoro and break intervals. Yo
 
 Built with React and Bootstrap.
 
-## Live App: https://urielfuentes98.github.io/pomo-tracker-frontend/
+## Live App: https://urielfuentes98.github.io/pomo-tracker-frontend/#/
