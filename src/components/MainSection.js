@@ -103,17 +103,6 @@ function MainApp({
       newSeconds = (nextMinutes - minutes - 1) * 60 + (60 - seconds);
     }
 
-    //Update stats state adding new data
-    setStats({
-      ...stats,
-      secToday: stats.secToday + newSeconds,
-      pomoToday: stats.pomoToday + newPomodoro,
-      secWeek: stats.secWeek + newSeconds,
-      pomoWeek: stats.pomoWeek + newPomodoro,
-      secMonth: stats.secMonth + newSeconds,
-      pomoMonth: stats.pomoMonth + newPomodoro,
-    });
-
     let textPomodoro = newPomodoro ? "true" : "false";
 
     //Send new record of time.
@@ -128,8 +117,20 @@ function MainApp({
       }),
       credentials: "include",
     })
-      .then((response) => response.text())
-      .then((message) => {})
+      .then((response) => {
+        if (response.ok) {
+          //Update stats state adding new data
+          setStats({
+            ...stats,
+            secToday: stats.secToday + newSeconds,
+            pomoToday: stats.pomoToday + newPomodoro,
+            secWeek: stats.secWeek + newSeconds,
+            pomoWeek: stats.pomoWeek + newPomodoro,
+            secMonth: stats.secMonth + newSeconds,
+            pomoMonth: stats.pomoMonth + newPomodoro,
+          });
+        }
+      })
       .catch((error) => console.log("error", error));
   };
 
