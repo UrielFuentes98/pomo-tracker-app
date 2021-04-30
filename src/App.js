@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import dayjs from "dayjs";
+import Loader from "react-loader-spinner";
 
 function App() {
   const history = useHistory();
@@ -64,7 +65,11 @@ function App() {
           </Route>
         </Col>
 
-        <Col xl={2} md={3} style={{ marginTop: "10vh" }}>
+        <Col
+          xl={2}
+          md={3}
+          style={{ marginTop: "10vh" }}
+        >
           <Switch>
             <Route path="/login">
               <Login />
@@ -78,6 +83,15 @@ function App() {
                 setUserName={setUserName}
                 stats={stats}
                 setStats={setStats}
+              />
+            </Route>
+            <Route path="/">
+              <Loader
+                type="TailSpin"
+                color="#484646"
+                height={100}
+                width={100}
+                style={{ marginTop: "50%", marginLeft: "20px" }}
               />
             </Route>
           </Switch>
